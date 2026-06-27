@@ -512,7 +512,7 @@ const AdminDashboard = ({ token, role = 'admin', onLogout }) => {
           {hasAccess('partners') && (
             <button className={`admin-nav-item ${activeTab === 'partners' ? 'active' : ''}`} onClick={() => setActiveTab('partners')}>
               <Users size={18} />
-              <span>Manage Partners</span>
+              <span>Manage Sponsors</span>
             </button>
           )}
           {hasAccess('messages') && (
@@ -861,7 +861,7 @@ const AdminDashboard = ({ token, role = 'admin', onLogout }) => {
         {activeTab === 'partners' && (
           <>
             <div className="admin-panel">
-              <h3 className="admin-panel-title" style={{ marginBottom: '1.5rem' }}>Add Trust Partner</h3>
+              <h3 className="admin-panel-title" style={{ marginBottom: '1.5rem' }}>Add Trust Sponsor</h3>
               <form onSubmit={handleAddPartner}>
                 <div className="admin-grid-2" style={{ gap: '2rem' }}>
                   <div className="admin-form-group">
@@ -876,7 +876,7 @@ const AdminDashboard = ({ token, role = 'admin', onLogout }) => {
                     />
                   </div>
                   <div className="admin-form-group">
-                    <label style={{ color: '#fff' }}>Partner Logo / Image</label>
+                    <label style={{ color: '#fff' }}>Sponsor Logo / Image</label>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginTop: '0.5rem' }}>
                       <div style={{
                         width: '60px',
@@ -944,19 +944,19 @@ const AdminDashboard = ({ token, role = 'admin', onLogout }) => {
                   </div>
                 </div>
                 <div style={{ textAlign: 'right', marginTop: '1.5rem' }}>
-                  <button type="submit" className="admin-btn-primary">Add Partner</button>
+                  <button type="submit" className="admin-btn-primary">Add Sponsor</button>
                 </div>
               </form>
             </div>
 
             <div className="admin-panel">
-              <h3 className="admin-panel-title" style={{ marginBottom: '1.5rem' }}>Active Partner List</h3>
+              <h3 className="admin-panel-title" style={{ marginBottom: '1.5rem' }}>Active Sponsor List</h3>
               <div className="admin-table-container">
                 <table className="admin-table">
                   <thead>
                     <tr>
                       <th>Icon / Logo</th>
-                      <th>Partner Name</th>
+                      <th>Sponsor Name</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
