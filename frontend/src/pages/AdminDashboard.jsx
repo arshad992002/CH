@@ -6,6 +6,23 @@ import {
 
 const API_BASE = '/api';
 
+const DEFAULT_SETTINGS = {
+  heroTitleLine1: "Where Compassion",
+  heroTitleLine2: "Meets Action",
+  heroSubtitle: "Caring Hands Charitable Trust uplifts our beloved elders through dedicated care, healthcare, and love — building a world where no one ages alone.",
+  heroImage: "/images/hero_banner.png",
+  logoImage: "/images/logo.png",
+  foundedYear: 2010,
+  stats: { eldersCaredFor: 250, yearsOfService: 15, volunteers: 5000, eventsOrganised: 120 },
+  contact: {
+    address: "Bada Banda, Mustaid Pura, Hyderabad, Telangana, 500006",
+    phone: "+91 95020 51489",
+    email: "info@caringhands.in",
+    officeHours: "Monday – Saturday, 9:00 AM – 6:00 PM IST"
+  },
+  socials: { facebook: "#", twitter: "#", linkedin: "#", instagram: "#", youtube: "#" }
+};
+
 const AdminDashboard = ({ token, role = 'admin', onLogout }) => {
   const [activeTab, setActiveTab] = useState('overview');
 
@@ -21,7 +38,7 @@ const AdminDashboard = ({ token, role = 'admin', onLogout }) => {
   };
   
   // Dashboard Data State
-  const [settings, setSettings] = useState(null);
+  const [settings, setSettings] = useState(DEFAULT_SETTINGS);
   const [events, setEvents] = useState([]);
   const [gallery, setGallery] = useState([]);
   const [partners, setPartners] = useState([]);
@@ -80,7 +97,13 @@ const AdminDashboard = ({ token, role = 'admin', onLogout }) => {
         fetch(`${API_BASE}/banners`).then(r => r.json())
       ]);
 
-      setSettings(settingsRes);
+      setSettings({
+        ...DEFAULT_SETTINGS,
+        ...settingsRes,
+        stats: { ...DEFAULT_SETTINGS.stats, ...(settingsRes?.stats || {}) },
+        contact: { ...DEFAULT_SETTINGS.contact, ...(settingsRes?.contact || {}) },
+        socials: { ...DEFAULT_SETTINGS.socials, ...(settingsRes?.socials || {}) }
+      });
       setEvents(eventsRes);
       setGallery(galleryRes);
       setPartners(partnersRes);
