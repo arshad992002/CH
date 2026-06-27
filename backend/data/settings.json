@@ -1,0 +1,25 @@
+{
+  "heroTitleLine1": "Where Compassion",
+  "heroTitleLine2": "Meets Action",
+  "heroSubtitle": "Caring Hands Charitable Trust uplifts our beloved elders through dedicated care, healthcare, and love — building a world where no one ages alone.",
+  "foundedYear": 2010,
+  "stats": {
+    "eldersCaredFor": 250,
+    "yearsOfService": 15,
+    "volunteers": 5000,
+    "eventsOrganised": 120
+  },
+  "contact": {
+    "address": "Bada Banda, Mustaid Pura, Hyderabad, Telangana, 500006",
+    "phone": "+91 95020 51489",
+    "email": "info@caringhands.in",
+    "officeHours": "Monday – Saturday, 9:00 AM – 6:00 PM IST"
+  },
+  "socials": {
+    "facebook": "#",
+    "twitter": "#",
+    "linkedin": "#",
+    "instagram": "#",
+    "youtube": "#"
+  }
+}

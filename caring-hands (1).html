@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caring Hands – Changing Lives With Love</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold:#C8953A;--gold-lt:#E8B96A;--gold-dk:#9A6F28;
+  --rose:#D4506A;--rose-lt:#E8799A;
+  --teal:#1E7B68;--teal-lt:#2EAA8F;
+  --ink:#0D0D1A;--ink2:#1A1A2E;
+  --cream:#FBF7F2;--cream2:#F5EEE4;
+  --glass:rgba(255,255,255,0.08);
+  --glass-border:rgba(255,255,255,0.15);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden}
+
+/* ── CURSOR ── */
+.cursor{position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:difference}
+.cursor-dot{width:8px;height:8px;background:#fff;border-radius:50%;transform:translate(-50%,-50%);transition:transform .1s}
+.cursor-ring{width:40px;height:40px;border:1.5px solid rgba(255,255,255,0.7);border-radius:50%;transform:translate(-50%,-50%);transition:all .18s ease;position:absolute;top:0;left:0}
+.cursor-ring.hovered{width:60px;height:60px;border-color:#C8953A;margin:-10px}
+
+/* ── PRELOADER ── */
+#preloader{position:fixed;inset:0;background:var(--ink);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
+.pre-logo{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:700;color:#fff;opacity:0;animation:preFadeIn 0.8s 0.3s forwards}
+.pre-bar-wrap{width:240px;height:2px;background:rgba(255,255,255,0.15);border-radius:2px;overflow:hidden}
+.pre-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-lt));width:0;animation:preLoad 1.8s 0.5s cubic-bezier(0.16,1,0.3,1) forwards}
+.pre-tagline{color:rgba(255,255,255,0.4);font-size:0.78rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0;animation:preFadeIn 0.8s 0.6s forwards}
+@keyframes preFadeIn{to{opacity:1}}
+@keyframes preLoad{to{width:100%}}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.2rem 6vw;display:flex;align-items:center;justify-content:space-between;transition:all 0.4s}
+nav.solid{background:rgba(13,13,26,0.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(200,149,58,0.2);padding:0.85rem 6vw}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-mark{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--gold-dk),var(--gold),var(--gold-lt));display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 20px rgba(200,149,58,0.5);animation:logoPulse 4s ease-in-out infinite}
+@keyframes logoPulse{0%,100%{box-shadow:0 0 20px rgba(200,149,58,0.4)}50%{box-shadow:0 0 35px rgba(200,149,58,0.7)}}
+.logo-text{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#fff;letter-spacing:0.02em}
+.logo-text span{color:var(--gold-lt)}
+.nav-menu{display:flex;gap:2.5rem;list-style:none}
+.nav-menu a{color:rgba(255,255,255,0.75);text-decoration:none;font-size:0.88rem;font-weight:500;letter-spacing:0.03em;transition:color 0.2s;position:relative}
+.nav-menu a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold-lt);transition:width 0.3s}
+.nav-menu a:hover{color:#fff}
+.nav-menu a:hover::after{width:100%}
+.nav-donate{background:linear-gradient(135deg,var(--gold-dk),var(--gold));color:#fff;border:none;padding:0.7rem 1.6rem;border-radius:50px;font-size:0.88rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all 0.25s;box-shadow:0 4px 20px rgba(200,149,58,0.4);letter-spacing:0.03em}
+.nav-donate:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(200,149,58,0.6)}
+
+/* ── HERO ── */
+.hero{position:relative;height:100vh;min-height:700px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#heroBg{position:absolute;inset:0;background:var(--ink);z-index:0}
+.hero-video{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover;opacity:0.35}
+.hero-gradient{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(13,13,26,0.3) 0%,rgba(13,13,26,0.1) 40%,rgba(13,13,26,0.85) 100%)}
+/* animated SVG particles canvas */
+#particleCanvas{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0.6}
+
+.hero-content{position:relative;z-index:5;text-align:center;max-width:900px;padding:2rem 3rem}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:0.6rem;background:rgba(200,149,58,0.15);border:1px solid rgba(200,149,58,0.35);color:var(--gold-lt);padding:0.45rem 1.2rem;border-radius:50px;font-size:0.8rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1.8rem;opacity:0;transform:translateY(20px);animation:heroUp 1s 0.5s cubic-bezier(0.16,1,0.3,1) forwards}
+.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3.2rem,8vw,6.2rem);font-weight:700;color:#fff;line-height:1.05;letter-spacing:-0.01em;margin-bottom:1.6rem;opacity:0;transform:translateY(30px);animation:heroUp 1.1s 0.7s cubic-bezier(0.16,1,0.3,1) forwards}
+.hero-h1 .italic{font-style:italic;color:var(--gold-lt)}
+.hero-h1 .line-2{display:block;font-weight:300}
+.hero-p{font-size:1.15rem;color:rgba(255,255,255,0.7);line-height:1.8;max-width:600px;margin:0 auto 2.5rem;font-weight:300;opacity:0;transform:translateY(20px);animation:heroUp 1s 0.9s cubic-bezier(0.16,1,0.3,1) forwards}
+.hero-actions{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;opacity:0;transform:translateY(20px);animation:heroUp 1s 1.1s cubic-bezier(0.16,1,0.3,1) forwards}
+@keyframes heroUp{to{opacity:1;transform:translateY(0)}}
+.btn-gold{background:linear-gradient(135deg,var(--gold-dk),var(--gold),var(--gold-lt));color:#fff;border:none;padding:1rem 2.5rem;border-radius:50px;font-size:1rem;font-weight:600;cursor:pointer;text-decoration:none;letter-spacing:0.04em;transition:all 0.3s;box-shadow:0 6px 30px rgba(200,149,58,0.5);position:relative;overflow:hidden}
+.btn-gold::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--gold-lt),var(--gold),var(--gold-dk));opacity:0;transition:opacity 0.3s}
+.btn-gold:hover::before{opacity:1}
+.btn-gold:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(200,149,58,0.65)}
+.btn-gold span{position:relative;z-index:1}
+.btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.4);padding:1rem 2.5rem;border-radius:50px;font-size:1rem;font-weight:500;cursor:pointer;text-decoration:none;letter-spacing:0.04em;transition:all 0.3s;backdrop-filter:blur(10px)}
+.btn-ghost:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.7);transform:translateY(-2px)}
+.hero-scroll-cue{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;gap:0.5rem;opacity:0;animation:heroUp 1s 1.5s forwards}
+.scroll-line{width:1px;height:60px;background:linear-gradient(180deg,transparent,var(--gold-lt),transparent);animation:scrollLine 2s ease-in-out infinite}
+@keyframes scrollLine{0%,100%{transform:scaleY(1);opacity:1}50%{transform:scaleY(0.6);opacity:0.5}}
+.scroll-text{color:rgba(255,255,255,0.4);font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase}
+
+/* ── MARQUEE ── */
+.marquee-strip{background:linear-gradient(90deg,var(--gold-dk),var(--gold),var(--gold-lt),var(--gold),var(--gold-dk));padding:0.75rem 0;overflow:hidden;position:relative;z-index:10}
+.marquee-inner{display:flex;white-space:nowrap;animation:marquee 22s linear infinite}
+.marquee-item{color:#fff;font-size:0.82rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:0 2.5rem}
+.marquee-sep{color:rgba(255,255,255,0.5);padding:0 0.3rem}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── STATS BELT ── */
+.stats-belt{background:var(--ink2);padding:5rem 6vw;display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;overflow:hidden}
+.stats-belt::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(200,149,58,0.08),transparent 70%);pointer-events:none}
+.stat-item{text-align:center;padding:2.5rem 1rem;border-right:1px solid rgba(255,255,255,0.06);position:relative}
+.stat-item:last-child{border-right:none}
+.stat-item::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(200,149,58,0.04),transparent 70%);opacity:0;transition:opacity 0.4s}
+.stat-item:hover::before{opacity:1}
+.stat-icon{font-size:2rem;margin-bottom:0.8rem;display:block;filter:drop-shadow(0 0 8px rgba(200,149,58,0.5))}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:700;color:var(--gold-lt);display:block;line-height:1}
+.stat-lbl{color:rgba(255,255,255,0.45);font-size:0.85rem;font-weight:400;margin-top:0.5rem;letter-spacing:0.05em}
+
+/* ── SECTION HELPERS ── */
+.reveal{opacity:0;transform:translateY(50px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+.reveal.up{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-50px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+.reveal-left.up{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(50px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+.reveal-right.up{opacity:1;transform:translateX(0)}
+.s-tag{display:inline-block;color:var(--gold);font-size:0.78rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:0.8rem;position:relative;padding-left:1.4rem}
+.s-tag::before{content:'';position:absolute;left:0;top:50%;width:0.85rem;height:1px;background:var(--gold)}
+.s-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4.5vw,3.4rem);font-weight:700;color:var(--ink);line-height:1.1;margin-bottom:1rem}
+.s-title .ital{font-style:italic;color:var(--gold-dk)}
+.s-body{color:#5A5A72;font-size:1.05rem;line-height:1.8;font-weight:300}
+
+/* ── ABOUT ── */
+.about-section{padding:8rem 6vw;background:var(--cream);overflow:hidden}
+.about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.about-visual{position:relative;min-height:560px}
+.a-img-1{width:68%;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.2);position:relative;z-index:2}
+.a-img-1 img{width:100%;height:380px;object-fit:cover;display:block;transition:transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+.a-img-1:hover img{transform:scale(1.04)}
+.a-img-2{width:56%;border-radius:20px;overflow:hidden;border:5px solid #fff;box-shadow:0 20px 50px rgba(0,0,0,0.15);position:absolute;bottom:0;right:0;z-index:3}
+.a-img-2 img{width:100%;height:240px;object-fit:cover;display:block;transition:transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+.a-img-2:hover img{transform:scale(1.06)}
+.a-badge{position:absolute;top:2rem;left:70%;transform:translateX(-50%);background:var(--ink2);color:#fff;padding:1rem 1.4rem;border-radius:18px;text-align:center;z-index:4;box-shadow:0 12px 32px rgba(0,0,0,0.3);border:1px solid rgba(200,149,58,0.3);animation:floatBadge 4s ease-in-out infinite}
+@keyframes floatBadge{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-8px)}}
+.a-badge strong{display:block;font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--gold-lt);line-height:1}
+.a-badge span{font-size:0.75rem;color:rgba(255,255,255,0.55);letter-spacing:0.08em}
+.a-glow{position:absolute;bottom:-60px;left:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(200,149,58,0.12),transparent 70%);z-index:1;animation:glowPulse 4s ease-in-out infinite}
+@keyframes glowPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.about-feats{display:flex;flex-direction:column;gap:1.4rem;margin-top:2rem}
+.feat-row{display:flex;gap:1rem;align-items:flex-start;padding:1.2rem;border-radius:16px;background:#fff;box-shadow:0 2px 16px rgba(0,0,0,0.05);border:1px solid rgba(0,0,0,0.04);transition:all 0.3s;cursor:default}
+.feat-row:hover{box-shadow:0 8px 32px rgba(0,0,0,0.1);transform:translateX(4px)}
+.feat-ico{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--gold-dk),var(--gold));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 4px 16px rgba(200,149,58,0.35)}
+.feat-txt strong{display:block;font-weight:600;color:var(--ink);font-size:0.98rem;margin-bottom:3px}
+.feat-txt span{font-size:0.86rem;color:#7A7A9A;line-height:1.5}
+
+/* ── CAUSES ── */
+.causes-section{padding:8rem 6vw;background:var(--ink2);position:relative;overflow:hidden}
+.causes-section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.causes-section .s-title{color:#fff}
+.causes-section .s-body{color:rgba(255,255,255,0.5)}
+.causes-header{text-align:center;margin-bottom:4rem}
+.causes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.cause-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:24px;overflow:hidden;transition:all 0.5s cubic-bezier(0.16,1,0.3,1);position:relative}
+.cause-card::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(200,149,58,0.08));opacity:0;transition:opacity 0.4s;z-index:0;border-radius:24px}
+.cause-card:hover{transform:translateY(-10px);border-color:rgba(200,149,58,0.3);box-shadow:0 30px 80px rgba(0,0,0,0.4)}
+.cause-card:hover::before{opacity:1}
+.c-img-wrap{position:relative;overflow:hidden}
+.c-img-wrap img{width:100%;height:220px;object-fit:cover;display:block;transition:transform 0.7s cubic-bezier(0.16,1,0.3,1)}
+.cause-card:hover .c-img-wrap img{transform:scale(1.08)}
+.c-cat{position:absolute;top:1rem;left:1rem;background:rgba(13,13,26,0.7);backdrop-filter:blur(8px);color:var(--gold-lt);font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:0.35rem 0.85rem;border-radius:50px;border:1px solid rgba(200,149,58,0.3)}
+.c-body{padding:1.6rem;position:relative;z-index:1}
+.c-body h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:0.7rem;line-height:1.25}
+.c-body p{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:1.2rem}
+.prog-wrap{margin-bottom:1.2rem}
+.prog-meta{display:flex;justify-content:space-between;font-size:0.8rem;font-weight:600;margin-bottom:0.5rem}
+.prog-meta .raised{color:rgba(255,255,255,0.7)}
+.prog-meta .pct{color:var(--gold-lt)}
+.prog-track{height:4px;background:rgba(255,255,255,0.1);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gold-dk),var(--gold-lt));width:0;transition:width 1.5s cubic-bezier(0.16,1,0.3,1)}
+.c-btn{display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,var(--gold-dk),var(--gold));color:#fff;padding:0.65rem 1.4rem;border-radius:50px;font-size:0.84rem;font-weight:600;text-decoration:none;transition:all 0.25s;letter-spacing:0.03em}
+.c-btn:hover{box-shadow:0 6px 20px rgba(200,149,58,0.5);transform:translateY(-2px)}
+.c-btn svg{width:14px;height:14px;transition:transform 0.2s}
+.c-btn:hover svg{transform:translateX(3px)}
+
+/* ── HOW ── */
+.how-section{padding:8rem 6vw;background:var(--cream2);position:relative;overflow:hidden}
+.how-section::after{content:'';position:absolute;bottom:-100px;right:-100px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(200,149,58,0.06),transparent 70%)}
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:4rem;position:relative}
+.how-grid::before{content:'';position:absolute;top:44px;left:12%;right:12%;height:1px;background:repeating-linear-gradient(90deg,var(--gold) 0,var(--gold) 8px,transparent 8px,transparent 16px);opacity:0.3;z-index:0}
+.how-step{text-align:center;position:relative;z-index:1}
+.how-num{width:88px;height:88px;border-radius:50%;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;position:relative;transition:all 0.4s;background:var(--cream2)}
+.how-num::before{content:'';position:absolute;inset:-6px;border-radius:50%;background:linear-gradient(135deg,var(--gold-dk),var(--gold-lt));opacity:0;z-index:-1;transition:opacity 0.4s}
+.how-step:hover .how-num{border-color:transparent;transform:scale(1.1)}
+.how-step:hover .how-num::before{opacity:1}
+.how-step:hover .how-num span{color:#fff}
+.how-num span{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--gold-dk);line-height:1;transition:color 0.3s}
+.how-step h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:var(--ink);margin-bottom:0.65rem}
+.how-step p{font-size:0.88rem;color:#6A6A82;line-height:1.7;font-weight:300}
+
+/* ── GALLERY ── */
+.gallery-section{padding:8rem 6vw;background:var(--ink);overflow:hidden}
+.gallery-section .s-title{color:#fff}
+.gallery-section .s-body{color:rgba(255,255,255,0.45)}
+.gal-header{text-align:center;margin-bottom:3.5rem}
+.gallery-mosaic{display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:auto;gap:0.8rem}
+.gm{border-radius:18px;overflow:hidden;cursor:pointer;position:relative}
+.gm img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.65s cubic-bezier(0.16,1,0.3,1),filter 0.4s}
+.gm:hover img{transform:scale(1.08);filter:brightness(0.75)}
+.gm-ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(200,149,58,0.6));opacity:0;transition:opacity 0.35s;display:flex;align-items:flex-end;padding:1.2rem}
+.gm:hover .gm-ov{opacity:1}
+.gm-ov span{color:#fff;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600}
+.gm1{grid-column:span 5;grid-row:span 2;min-height:320px}
+.gm2{grid-column:span 4;min-height:155px}
+.gm3{grid-column:span 3;min-height:155px}
+.gm4{grid-column:span 3;min-height:155px}
+.gm5{grid-column:span 4;min-height:155px}
+.gm6{grid-column:span 4;min-height:155px}
+.gm7{grid-column:span 4;min-height:210px}
+.gm8{grid-column:span 4;min-height:210px}
+.gm9{grid-column:span 4;min-height:210px}
+
+/* ── TESTIMONIALS ── */
+.test-section{padding:8rem 6vw;background:var(--cream2);position:relative;overflow:hidden}
+.test-section::before{content:'❝';position:absolute;top:3rem;left:50%;transform:translateX(-50%);font-family:'Cormorant Garamond',serif;font-size:20rem;color:rgba(200,149,58,0.05);line-height:1;pointer-events:none}
+.test-header{text-align:center;margin-bottom:4rem}
+.test-slider{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.test-card{background:#fff;border-radius:24px;padding:2.2rem;box-shadow:0 4px 30px rgba(0,0,0,0.06);position:relative;overflow:hidden;border:1px solid rgba(0,0,0,0.04);transition:all 0.4s cubic-bezier(0.16,1,0.3,1)}
+.test-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold-dk),var(--gold-lt));transform:scaleX(0);transform-origin:left;transition:transform 0.4s}
+.test-card:hover::before{transform:scaleX(1)}
+.test-card:hover{box-shadow:0 16px 60px rgba(0,0,0,0.12);transform:translateY(-5px)}
+.test-quote{font-size:3rem;color:var(--gold-lt);line-height:0.8;font-family:'Cormorant Garamond',serif;margin-bottom:0.5rem;opacity:0.5}
+.test-stars{color:#F59E0B;font-size:0.95rem;letter-spacing:3px;margin-bottom:1rem}
+.test-text{font-size:0.95rem;color:#5A5A72;line-height:1.8;font-style:italic;margin-bottom:1.6rem;font-weight:300}
+.test-author{display:flex;align-items:center;gap:0.85rem;border-top:1px solid rgba(0,0,0,0.05);padding-top:1.2rem}
+.test-av{width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid var(--gold-lt)}
+.test-name{font-weight:600;font-size:0.92rem;color:var(--ink)}
+.test-role{font-size:0.78rem;color:#9090B0;margin-top:1px}
+
+/* ── IMPACT MAP / DONATE ── */
+.donate-section{padding:0;overflow:hidden;position:relative}
+.donate-bg{min-height:600px;background:linear-gradient(135deg,var(--ink2) 0%,#0A1628 50%,var(--ink) 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:6rem 6vw}
+.donate-bg::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C8953A' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.donate-orb{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(200,149,58,0.12),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);animation:orbPulse 5s ease-in-out infinite}
+@keyframes orbPulse{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.15)}}
+.donate-inner{position:relative;z-index:2;text-align:center;max-width:720px}
+.donate-inner .s-tag{color:var(--gold-lt)}
+.donate-inner h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,5vw,3.8rem);font-weight:700;color:#fff;margin-bottom:1rem;line-height:1.1}
+.donate-inner h2 em{font-style:italic;color:var(--gold-lt)}
+.donate-inner p{color:rgba(255,255,255,0.6);font-size:1.05rem;line-height:1.8;margin-bottom:2.5rem;font-weight:300}
+.amt-chips{display:flex;gap:0.9rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.8rem}
+.amt-chip{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.8);border:1px solid rgba(255,255,255,0.15);padding:0.7rem 1.6rem;border-radius:50px;font-size:0.95rem;font-weight:500;cursor:pointer;transition:all 0.25s;letter-spacing:0.03em}
+.amt-chip:hover,.amt-chip.sel{background:linear-gradient(135deg,var(--gold-dk),var(--gold));border-color:var(--gold);color:#fff;box-shadow:0 6px 24px rgba(200,149,58,0.45);transform:translateY(-2px)}
+.donate-row{display:flex;gap:0;max-width:460px;margin:0 auto}
+.d-input{flex:1;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);border-right:none;border-radius:50px 0 0 50px;padding:1rem 1.4rem;color:#fff;font-size:1rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s}
+.d-input::placeholder{color:rgba(255,255,255,0.3)}
+.d-input:focus{border-color:var(--gold)}
+.d-submit{background:linear-gradient(135deg,var(--gold-dk),var(--gold));border:none;border-radius:0 50px 50px 0;padding:1rem 2rem;color:#fff;font-size:0.95rem;font-weight:600;cursor:pointer;transition:all 0.25s;letter-spacing:0.04em;white-space:nowrap}
+.d-submit:hover{box-shadow:0 6px 24px rgba(200,149,58,0.6)}
+.donate-trust{display:flex;align-items:center;justify-content:center;gap:2rem;margin-top:2rem;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:0.5rem;color:rgba(255,255,255,0.4);font-size:0.8rem;letter-spacing:0.05em}
+.trust-icon{font-size:1.1rem}
+
+/* ── TEAM ── */
+.team-section{padding:8rem 6vw;background:var(--cream)}
+.team-header{text-align:center;margin-bottom:4rem}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.team-card{position:relative;border-radius:24px;overflow:hidden;cursor:pointer}
+.team-img-wrap{position:relative;overflow:hidden;border-radius:24px}
+.team-img-wrap img{width:100%;height:320px;object-fit:cover;display:block;transition:transform 0.7s cubic-bezier(0.16,1,0.3,1),filter 0.4s;filter:grayscale(20%)}
+.team-card:hover .team-img-wrap img{transform:scale(1.07);filter:grayscale(0%)}
+.team-ov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(13,13,26,0.9));border-radius:24px;display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;transform:translateY(10px);transition:transform 0.4s}
+.team-card:hover .team-ov{transform:translateY(0)}
+.team-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#fff;margin-bottom:2px}
+.team-role{color:var(--gold-lt);font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.6rem}
+.team-bio{font-size:0.82rem;color:rgba(255,255,255,0.6);line-height:1.6;font-weight:300;transform:translateY(8px);opacity:0;transition:all 0.35s 0.05s}
+.team-card:hover .team-bio{transform:translateY(0);opacity:1}
+.team-social{display:flex;gap:0.5rem;margin-top:0.8rem;transform:translateY(8px);opacity:0;transition:all 0.35s 0.1s}
+.team-card:hover .team-social{transform:translateY(0);opacity:1}
+.t-soc{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;text-decoration:none;transition:background 0.2s}
+.t-soc:hover{background:var(--gold)}
+
+/* ── CONTACT ── */
+.contact-section{padding:8rem 6vw;background:var(--ink2);position:relative;overflow:hidden}
+.contact-section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:start}
+.contact-section .s-title{color:#fff}
+.contact-section .s-body{color:rgba(255,255,255,0.45)}
+.c-info-items{display:flex;flex-direction:column;gap:1.5rem;margin-top:2.5rem}
+.c-info-item{display:flex;gap:1rem;align-items:flex-start}
+.c-ico{width:48px;height:48px;border-radius:14px;background:rgba(200,149,58,0.12);border:1px solid rgba(200,149,58,0.2);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;transition:all 0.3s}
+.c-info-item:hover .c-ico{background:rgba(200,149,58,0.25);border-color:var(--gold)}
+.c-info-item strong{display:block;color:#fff;font-weight:600;font-size:0.95rem;margin-bottom:3px}
+.c-info-item span{color:rgba(255,255,255,0.45);font-size:0.88rem;line-height:1.6}
+.c-form-wrap{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:28px;padding:2.8rem;backdrop-filter:blur(10px)}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:0}
+.f-group{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.1rem}
+.f-group label{font-size:0.8rem;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:0.06em;text-transform:uppercase}
+.f-group input,.f-group textarea,.f-group select{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0.85rem 1rem;color:#fff;font-family:'DM Sans',sans-serif;font-size:0.95rem;outline:none;transition:all 0.25s}
+.f-group input::placeholder,.f-group textarea::placeholder{color:rgba(255,255,255,0.2)}
+.f-group input:focus,.f-group textarea:focus,.f-group select:focus{border-color:var(--gold);background:rgba(200,149,58,0.06)}
+.f-group select{color:rgba(255,255,255,0.6)}
+.f-group select option{background:var(--ink2);color:#fff}
+.f-group textarea{resize:vertical;min-height:110px}
+.f-submit{width:100%;background:linear-gradient(135deg,var(--gold-dk),var(--gold),var(--gold-lt));border:none;border-radius:50px;padding:1rem;color:#fff;font-size:1rem;font-weight:600;cursor:pointer;letter-spacing:0.04em;transition:all 0.3s;box-shadow:0 6px 24px rgba(200,149,58,0.3)}
+.f-submit:hover{box-shadow:0 12px 40px rgba(200,149,58,0.55);transform:translateY(-2px)}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);padding:5rem 6vw 2.5rem;border-top:1px solid rgba(255,255,255,0.06)}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:4rem}
+.footer-brand-text{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:0.8rem}
+.footer-brand-text span{color:var(--gold-lt)}
+.footer-desc{font-size:0.88rem;color:rgba(255,255,255,0.4);line-height:1.75;margin-bottom:1.5rem;font-weight:300}
+.f-socials{display:flex;gap:0.75rem}
+.f-soc{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.25s;text-decoration:none}
+.f-soc:hover{background:var(--gold);border-color:var(--gold);color:#fff;transform:translateY(-3px)}
+.footer-col h5{font-size:0.8rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:1.2rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.7rem}
+.footer-col ul a{color:rgba(255,255,255,0.5);text-decoration:none;font-size:0.88rem;transition:color 0.2s;font-weight:300}
+.footer-col ul a:hover{color:var(--gold-lt)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.06);padding-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-bottom span{font-size:0.8rem;color:rgba(255,255,255,0.25)}
+.footer-trust{display:flex;gap:1.5rem}
+.footer-trust span{font-size:0.75rem;color:rgba(255,255,255,0.25);display:flex;align-items:center;gap:0.3rem}
+
+/* ── FLOATING DONATE ── */
+.float-btn{position:fixed;bottom:2.5rem;right:2.5rem;z-index:800;background:linear-gradient(135deg,var(--gold-dk),var(--gold));color:#fff;width:64px;height:64px;border-radius:50%;border:none;font-size:1.6rem;cursor:pointer;box-shadow:0 8px 30px rgba(200,149,58,0.55);transition:all 0.3s;animation:floatBtn 3.5s ease-in-out infinite;display:flex;align-items:center;justify-content:center}
+.float-btn:hover{transform:scale(1.14);box-shadow:0 14px 40px rgba(200,149,58,0.7)}
+@keyframes floatBtn{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .causes-grid{grid-template-columns:1fr 1fr}
+  .team-grid{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .stats-belt{grid-template-columns:repeat(2,1fr)}
+  .stat-item{border-bottom:1px solid rgba(255,255,255,0.06)}
+}
+@media(max-width:860px){
+  .about-wrap{grid-template-columns:1fr;gap:3rem}
+  .about-visual{min-height:360px}
+  .contact-grid{grid-template-columns:1fr}
+  .test-slider{grid-template-columns:1fr}
+  .how-grid{grid-template-columns:repeat(2,1fr)}
+  .how-grid::before{display:none}
+}
+@media(max-width:640px){
+  .causes-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr 1fr}
+  .gm1{grid-column:span 12}
+  .gm2,.gm3,.gm4,.gm5,.gm6{grid-column:span 6}
+  .gm7,.gm8,.gm9{grid-column:span 12}
+  .how-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}
+  .stats-belt{grid-template-columns:repeat(2,1fr)}
+  .hero-content{padding:2rem 1.5rem}
+  .f-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="pre-logo">🤲 Caring Hands</div>
+  <div class="pre-bar-wrap"><div class="pre-bar"></div></div>
+  <div class="pre-tagline">Changing Lives With Love</div>
+</div>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor">
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="#">
+    <div class="logo-mark">🤲</div>
+    <span class="logo-text">Caring <span>Hands</span></span>
+  </a>
+  <ul class="nav-menu">
+    <li><a href="#about">About</a></li>
+    <li><a href="#causes">Causes</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-donate" href="#donate">Donate Now ✦</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div id="heroBg"></div>
+  <video class="hero-video" autoplay muted loop playsinline id="heroVid">
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+  </video>
+  <canvas id="particleCanvas"></canvas>
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span class="eyebrow-dot"></span>Serving Humanity Since 2010</div>
+    <h1 class="hero-h1">
+      Where <span class="italic">Compassion</span>
+      <span class="line-2">Meets Action</span>
+    </h1>
+    <p class="hero-p">Caring Hands uplifts communities through education, healthcare, and love — building a world where no one is left behind, one life at a time.</p>
+    <div class="hero-actions">
+      <a class="btn-gold" href="#donate"><span>Make a Difference</span></a>
+      <a class="btn-ghost" href="#about">Our Mission</a>
+    </div>
+  </div>
+  <div class="hero-scroll-cue">
+    <div class="scroll-line"></div>
+    <div class="scroll-text">Scroll</div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner" id="marqueeInner">
+    <span class="marquee-item">Education for All <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Healthcare Outreach <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Hunger Relief <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Community Building <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Women Empowerment <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Child Welfare <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Clean Water Access <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Disaster Relief <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Education for All <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Healthcare Outreach <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Hunger Relief <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Community Building <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Women Empowerment <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Child Welfare <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Clean Water Access <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Disaster Relief <span class="marquee-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-belt" id="statsSection">
+  <div class="stat-item reveal">
+    <span class="stat-icon">🌍</span>
+    <span class="stat-num" data-target="48000">0</span>
+    <span class="stat-lbl">Lives Changed</span>
+  </div>
+  <div class="stat-item reveal" style="transition-delay:0.1s">
+    <span class="stat-icon">🗺️</span>
+    <span class="stat-num" data-target="120">0</span>
+    <span class="stat-lbl">Countries Reached</span>
+  </div>
+  <div class="stat-item reveal" style="transition-delay:0.2s">
+    <span class="stat-icon">🙌</span>
+    <span class="stat-num" data-target="3200">0</span>
+    <span class="stat-lbl">Volunteers</span>
+  </div>
+  <div class="stat-item reveal" style="transition-delay:0.3s">
+    <span class="stat-icon">✅</span>
+    <span class="stat-num" data-target="850">0</span>
+    <span class="stat-lbl">Projects Completed</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="about-wrap">
+    <div class="about-visual reveal-left">
+      <div class="a-glow"></div>
+      <div class="a-img-1">
+        <img src="https://picsum.photos/seed/ch-vol/700/420" alt="Volunteers at work">
+      </div>
+      <div class="a-img-2">
+        <img src="https://picsum.photos/seed/ch-kids/500/300" alt="Children benefiting">
+      </div>
+      <div class="a-badge">
+        <strong>14+</strong>
+        <span>Years of Impact</span>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="s-tag">Who We Are</div>
+      <h2 class="s-title">Rooted in Love,<br>Driven by <span class="ital">Purpose</span></h2>
+      <p class="s-body">Since 2010, Caring Hands has been a beacon of hope for vulnerable communities across the globe. We believe every person deserves dignity, opportunity, and unwavering compassion.</p>
+      <div class="about-feats">
+        <div class="feat-row">
+          <div class="feat-ico">🎓</div>
+          <div class="feat-txt"><strong>Education Access</strong><span>Scholarships and schools for 12,000+ children annually across rural India</span></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-ico">🏥</div>
+          <div class="feat-txt"><strong>Healthcare Outreach</strong><span>Free medical clinics bringing doctors to villages that have never seen a hospital</span></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-ico">🍽️</div>
+          <div class="feat-txt"><strong>Hunger Relief</strong><span>Daily nutritious meals for 5,000+ families living in food insecure regions</span></div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-ico">🌱</div>
+          <div class="feat-txt"><strong>Livelihood Programs</strong><span>Vocational training empowering communities to build sustainable futures</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAUSES -->
+<section class="causes-section" id="causes">
+  <div class="causes-header reveal">
+    <div class="s-tag" style="color:var(--gold-lt)">Active Campaigns</div>
+    <h2 class="s-title" style="color:#fff">Causes Close to <span class="ital">Our Heart</span></h2>
+    <p class="s-body" style="color:rgba(255,255,255,0.5)">Every donation is invested directly into programs that create lasting, measurable change.</p>
+  </div>
+  <div class="causes-grid">
+    <div class="cause-card reveal" style="transition-delay:0s">
+      <div class="c-img-wrap">
+        <img src="https://picsum.photos/seed/edu-cause/600/320" alt="Education">
+        <span class="c-cat">Education</span>
+      </div>
+      <div class="c-body">
+        <h3>Books & Dreams — School Building Drive</h3>
+        <p>Building 10 new schools in rural Telangana so every child has a place to learn, grow, and dream without limits.</p>
+        <div class="prog-wrap">
+          <div class="prog-meta"><span class="raised">₹18.4L raised</span><span class="pct">76%</span></div>
+          <div class="prog-track"><div class="prog-fill" data-w="76"></div></div>
+        </div>
+        <a class="c-btn" href="#donate">
+          Support <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="cause-card reveal" style="transition-delay:0.12s">
+      <div class="c-img-wrap">
+        <img src="https://picsum.photos/seed/health-cause/600/320" alt="Healthcare">
+        <span class="c-cat">Healthcare</span>
+      </div>
+      <div class="c-body">
+        <h3>Healing Hearts — Mobile Medical Units</h3>
+        <p>Mobile clinics bringing doctors, medicines, and diagnostics to remote villages across India's most underserved areas.</p>
+        <div class="prog-wrap">
+          <div class="prog-meta"><span class="raised">₹9.1L raised</span><span class="pct">55%</span></div>
+          <div class="prog-track"><div class="prog-fill" data-w="55"></div></div>
+        </div>
+        <a class="c-btn" href="#donate">
+          Support <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="cause-card reveal" style="transition-delay:0.24s">
+      <div class="c-img-wrap">
+        <img src="https://picsum.photos/seed/food-cause/600/320" alt="Food">
+        <span class="c-cat">Hunger Relief</span>
+      </div>
+      <div class="c-body">
+        <h3>Full Plates, Full Lives — Hunger Campaign</h3>
+        <p>Emergency food rations and daily meals for families in drought-affected regions this critical season.</p>
+        <div class="prog-wrap">
+          <div class="prog-meta"><span class="raised">₹6.3L raised</span><span class="pct">89%</span></div>
+          <div class="prog-track"><div class="prog-fill" data-w="89"></div></div>
+        </div>
+        <a class="c-btn" href="#donate">
+          Support <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div style="text-align:center" class="reveal">
+    <div class="s-tag">The Journey</div>
+    <h2 class="s-title">How Your Gift <span class="ital">Works</span></h2>
+    <p class="s-body" style="margin:0 auto;max-width:500px">Transparent, accountable, and fully traceable — your rupee where it matters most.</p>
+  </div>
+  <div class="how-grid">
+    <div class="how-step reveal" style="transition-delay:0s">
+      <div class="how-num"><span>1</span></div>
+      <h3>You Donate</h3>
+      <p>Choose a cause and give securely. Every payment is encrypted and your receipt arrives instantly.</p>
+    </div>
+    <div class="how-step reveal" style="transition-delay:0.12s">
+      <div class="how-num"><span>2</span></div>
+      <h3>We Allocate</h3>
+      <p>95 paise of every rupee goes directly to programs. Quarterly financial reports are public and transparent.</p>
+    </div>
+    <div class="how-step reveal" style="transition-delay:0.24s">
+      <div class="how-num"><span>3</span></div>
+      <h3>Impact Happens</h3>
+      <p>Ground teams deploy resources to communities with real-time field updates and GPS-tagged project tracking.</p>
+    </div>
+    <div class="how-step reveal" style="transition-delay:0.36s">
+      <div class="how-num"><span>4</span></div>
+      <h3>You See Results</h3>
+      <p>Receive photo stories, personal thank-you notes, and detailed impact reports from the lives you touched.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="gal-header reveal">
+    <div class="s-tag" style="color:var(--gold-lt)">Photo Stories</div>
+    <h2 class="s-title" style="color:#fff">Moments of <span class="ital">Hope & Change</span></h2>
+    <p class="s-body" style="color:rgba(255,255,255,0.4);margin:0 auto;max-width:480px">Real snapshots from the field — the smiles your generosity creates.</p>
+  </div>
+  <div class="gallery-mosaic" style="margin-top:3rem">
+    <div class="gm gm1 reveal"><img src="https://picsum.photos/seed/gx1/700/520" alt="Community event"><div class="gm-ov"><span>Community Gathering</span></div></div>
+    <div class="gm gm2 reveal" style="transition-delay:0.08s"><img src="https://picsum.photos/seed/gx2/500/260" alt="Children learning"><div class="gm-ov"><span>Learning Together</span></div></div>
+    <div class="gm gm3 reveal" style="transition-delay:0.12s"><img src="https://picsum.photos/seed/gx3/400/260" alt="Medical camp"><div class="gm-ov"><span>Health Camp</span></div></div>
+    <div class="gm gm4 reveal" style="transition-delay:0.16s"><img src="https://picsum.photos/seed/gx4/400/260" alt="Food drive"><div class="gm-ov"><span>Food Distribution</span></div></div>
+    <div class="gm gm5 reveal" style="transition-delay:0.2s"><img src="https://picsum.photos/seed/gx5/500/260" alt="Volunteer work"><div class="gm-ov"><span>Volunteer Day</span></div></div>
+    <div class="gm gm6 reveal" style="transition-delay:0.24s"><img src="https://picsum.photos/seed/gx6/500/260" alt="Clean water"><div class="gm-ov"><span>Clean Water</span></div></div>
+    <div class="gm gm7 reveal" style="transition-delay:0.06s"><img src="https://picsum.photos/seed/gx7/600/220" alt="School opening"><div class="gm-ov"><span>New School Opening</span></div></div>
+    <div class="gm gm8 reveal" style="transition-delay:0.1s"><img src="https://picsum.photos/seed/gx8/600/220" alt="Women programs"><div class="gm-ov"><span>Women's Empowerment</span></div></div>
+    <div class="gm gm9 reveal" style="transition-delay:0.14s"><img src="https://picsum.photos/seed/gx9/600/220" alt="Smiling families"><div class="gm-ov"><span>Smiling Futures</span></div></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="test-section" id="testimonials">
+  <div class="test-header reveal">
+    <div class="s-tag">Stories of Hope</div>
+    <h2 class="s-title">Words That Warm <span class="ital">Our Hearts</span></h2>
+  </div>
+  <div class="test-slider">
+    <div class="test-card reveal" style="transition-delay:0s">
+      <div class="test-quote">"</div>
+      <div class="test-stars">★★★★★</div>
+      <p class="test-text">Because of Caring Hands, my daughter now attends school every day. She used to help me beg on the streets. Today she wants to be a doctor. I owe them my whole world.</p>
+      <div class="test-author">
+        <img class="test-av" src="https://picsum.photos/seed/av1/100/100" alt="Priya Reddy">
+        <div><div class="test-name">Priya Reddy</div><div class="test-role">Beneficiary, Hyderabad</div></div>
+      </div>
+    </div>
+    <div class="test-card reveal" style="transition-delay:0.12s">
+      <div class="test-quote">"</div>
+      <div class="test-stars">★★★★★</div>
+      <p class="test-text">Volunteering changed my life more than I could have imagined. I came to give and left having received immeasurably more. The ground team is exceptional, tireless, and full of heart.</p>
+      <div class="test-author">
+        <img class="test-av" src="https://picsum.photos/seed/av2/100/100" alt="Arjun Sharma">
+        <div><div class="test-name">Arjun Sharma</div><div class="test-role">Volunteer, Bengaluru</div></div>
+      </div>
+    </div>
+    <div class="test-card reveal" style="transition-delay:0.24s">
+      <div class="test-quote">"</div>
+      <div class="test-stars">★★★★★</div>
+      <p class="test-text">As a corporate donor, transparency is everything. Caring Hands sends quarterly impact reports with GPS-tagged photos. Every rupee is traceable. This is how charitable giving should work.</p>
+      <div class="test-author">
+        <img class="test-av" src="https://picsum.photos/seed/av3/100/100" alt="Neha Kapoor">
+        <div><div class="test-name">Neha Kapoor</div><div class="test-role">Corporate Partner, Mumbai</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DONATE -->
+<section class="donate-section" id="donate">
+  <div class="donate-bg">
+    <div class="donate-orb"></div>
+    <div class="donate-inner reveal">
+      <div class="s-tag" style="color:var(--gold-lt)">Give Today</div>
+      <h2>Your Gift Changes <em>Everything</em></h2>
+      <p>Whether it's ₹100 or ₹1,00,000 — every contribution creates a ripple of hope in someone's life. Join 48,000 supporters making the world kinder, one act at a time.</p>
+      <div class="amt-chips">
+        <div class="amt-chip" onclick="setAmt(500,this)">₹500</div>
+        <div class="amt-chip sel" onclick="setAmt(1000,this)">₹1,000</div>
+        <div class="amt-chip" onclick="setAmt(2500,this)">₹2,500</div>
+        <div class="amt-chip" onclick="setAmt(5000,this)">₹5,000</div>
+        <div class="amt-chip" onclick="setAmt(10000,this)">₹10,000</div>
+      </div>
+      <div class="donate-row">
+        <input class="d-input" type="number" id="dAmt" placeholder="₹ Custom amount" value="1000">
+        <button class="d-submit" onclick="handleDonate()">Donate Now →</button>
+      </div>
+      <div class="donate-trust">
+        <div class="trust-item"><span class="trust-icon">🔒</span>Secure Payment</div>
+        <div class="trust-item"><span class="trust-icon">🧾</span>80G Tax Exempt</div>
+        <div class="trust-item"><span class="trust-icon">✅</span>FCRA Approved</div>
+        <div class="trust-item"><span class="trust-icon">📊</span>95% to Programs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-section" id="team">
+  <div class="team-header reveal">
+    <div class="s-tag">Our People</div>
+    <h2 class="s-title">The <span class="ital">Caring Hands</span> Family</h2>
+    <p class="s-body" style="margin:0 auto;max-width:480px">Driven by compassion, powered by purpose — meet the changemakers behind our mission.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card reveal" style="transition-delay:0s">
+      <div class="team-img-wrap">
+        <img src="https://picsum.photos/seed/team-a/400/480" alt="Meera Nair">
+        <div class="team-ov">
+          <div class="team-name">Meera Nair</div>
+          <div class="team-role">Founder & Director</div>
+          <div class="team-bio">Social entrepreneur with 20 years in community development across South and Southeast Asia.</div>
+          <div class="team-social">
+            <a class="t-soc" href="#">f</a><a class="t-soc" href="#">in</a><a class="t-soc" href="#">𝕏</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="team-card reveal" style="transition-delay:0.1s">
+      <div class="team-img-wrap">
+        <img src="https://picsum.photos/seed/team-b/400/480" alt="Rajan Pillai">
+        <div class="team-ov">
+          <div class="team-name">Rajan Pillai</div>
+          <div class="team-role">Head of Operations</div>
+          <div class="team-bio">Former IAS officer turned social worker, ensuring every program runs with precision and heart.</div>
+          <div class="team-social">
+            <a class="t-soc" href="#">f</a><a class="t-soc" href="#">in</a><a class="t-soc" href="#">𝕏</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="team-card reveal" style="transition-delay:0.2s">
+      <div class="team-img-wrap">
+        <img src="https://picsum.photos/seed/team-c/400/480" alt="Dr Ananya Singh">
+        <div class="team-ov">
+          <div class="team-name">Dr. Ananya Singh</div>
+          <div class="team-role">Medical Director</div>
+          <div class="team-bio">AIIMS alumna leading healthcare outreach to the most underserved corners of India.</div>
+          <div class="team-social">
+            <a class="t-soc" href="#">f</a><a class="t-soc" href="#">in</a><a class="t-soc" href="#">𝕏</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="team-card reveal" style="transition-delay:0.3s">
+      <div class="team-img-wrap">
+        <img src="https://picsum.photos/seed/team-d/400/480" alt="Suresh Kumar">
+        <div class="team-ov">
+          <div class="team-name">Suresh Kumar</div>
+          <div class="team-role">Education Lead</div>
+          <div class="team-bio">EdTech veteran building scalable learning solutions for rural schools across Telangana and AP.</div>
+          <div class="team-social">
+            <a class="t-soc" href="#">f</a><a class="t-soc" href="#">in</a><a class="t-soc" href="#">𝕏</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-grid">
+    <div class="reveal-left">
+      <div class="s-tag" style="color:var(--gold-lt)">Get In Touch</div>
+      <h2 class="s-title" style="color:#fff">Let's Talk About<br><span class="ital">Making a Difference</span></h2>
+      <p class="s-body" style="color:rgba(255,255,255,0.45)">Whether you want to volunteer, partner, or simply say hello — we would love to hear from you.</p>
+      <div class="c-info-items">
+        <div class="c-info-item">
+          <div class="c-ico">📍</div>
+          <div><strong>Visit Us</strong><span>12 Hope Street, Banjara Hills, Hyderabad, Telangana 500034</span></div>
+        </div>
+        <div class="c-info-item">
+          <div class="c-ico">📞</div>
+          <div><strong>Call Us</strong><span>+91 40 2345 6789 · +91 98765 43210</span></div>
+        </div>
+        <div class="c-info-item">
+          <div class="c-ico">📧</div>
+          <div><strong>Email Us</strong><span>hello@caringhands.org · donate@caringhands.org</span></div>
+        </div>
+        <div class="c-info-item">
+          <div class="c-ico">🕐</div>
+          <div><strong>Office Hours</strong><span>Monday – Saturday, 9:00 AM – 6:00 PM IST</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="c-form-wrap reveal-right">
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:#fff;margin-bottom:1.8rem">Send a Message</h3>
+      <div class="f-row">
+        <div class="f-group"><label>First Name</label><input type="text" placeholder="Priya"></div>
+        <div class="f-group"><label>Last Name</label><input type="text" placeholder="Reddy"></div>
+      </div>
+      <div class="f-group"><label>Email</label><input type="email" placeholder="priya@email.com"></div>
+      <div class="f-group"><label>Phone</label><input type="tel" placeholder="+91 98765 43210"></div>
+      <div class="f-group">
+        <label>I want to</label>
+        <select>
+          <option>Volunteer with Caring Hands</option>
+          <option>Make a donation</option>
+          <option>Corporate CSR partnership</option>
+          <option>General enquiry</option>
+        </select>
+      </div>
+      <div class="f-group"><label>Message</label><textarea placeholder="Tell us how you'd like to help…"></textarea></div>
+      <button class="f-submit" onclick="handleForm()">Send Message ✦</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-text">Caring <span>Hands</span></div>
+      <p class="footer-desc">Empowering communities through compassion, education, and healthcare. Together we build a world where no one is left behind.</p>
+      <div class="f-socials">
+        <a class="f-soc" href="#">f</a>
+        <a class="f-soc" href="#">𝕏</a>
+        <a class="f-soc" href="#">in</a>
+        <a class="f-soc" href="#">📷</a>
+        <a class="f-soc" href="#">▶</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#causes">Our Causes</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#team">Our Team</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Programs</h5>
+      <ul>
+        <li><a href="#">Education Access</a></li>
+        <li><a href="#">Healthcare Outreach</a></li>
+        <li><a href="#">Hunger Relief</a></li>
+        <li><a href="#">Women Empowerment</a></li>
+        <li><a href="#">Disaster Relief</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Get Involved</h5>
+      <ul>
+        <li><a href="#">Volunteer</a></li>
+        <li><a href="#">Corporate CSR</a></li>
+        <li><a href="#">Monthly Giving</a></li>
+        <li><a href="#">Fundraise for Us</a></li>
+        <li><a href="#">Annual Reports</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Caring Hands Charitable Trust · Reg. NGO · FCRA Approved · 80G Tax Exemption</span>
+    <div class="footer-trust">
+      <span>🔒 Secure</span>
+      <span>✅ Transparent</span>
+      <span>❤️ Built for humanity</span>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING DONATE -->
+<button class="float-btn" onclick="document.getElementById('donate').scrollIntoView({behavior:'smooth'})" title="Donate Now">❤️</button>
+
+<script>
+// ── PRELOADER ──
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    const pre=document.getElementById('preloader');
+    pre.style.transition='opacity 0.6s, visibility 0.6s';
+    pre.style.opacity='0';
+    pre.style.visibility='hidden';
+  },2200);
+});
+
+// ── CUSTOM CURSOR ──
+const cursor=document.getElementById('cursor');
+const ring=document.getElementById('cursorRing');
+let cx=0,cy=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  cx=e.clientX;cy=e.clientY;
+  cursor.querySelector('.cursor-dot').style.left=cx+'px';
+  cursor.querySelector('.cursor-dot').style.top=cy+'px';
+});
+function animRing(){
+  rx+=(cx-rx)*0.12;ry+=(cy-ry)*0.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+}animRing();
+document.querySelectorAll('a,button,.cause-card,.team-card,.feat-row,.gm').forEach(el=>{
+  el.addEventListener('mouseenter',()=>ring.classList.add('hovered'));
+  el.addEventListener('mouseleave',()=>ring.classList.remove('hovered'));
+});
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('solid',window.scrollY>60);
+});
+
+// ── PARTICLE CANVAS ──
+const canvas=document.getElementById('particleCanvas');
+const ctx=canvas.getContext('2d');
+let particles=[];
+function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}
+resizeCanvas();window.addEventListener('resize',resizeCanvas);
+class Particle{
+  constructor(){this.reset()}
+  reset(){
+    this.x=Math.random()*canvas.width;
+    this.y=Math.random()*canvas.height;
+    this.r=Math.random()*2+0.5;
+    this.vx=(Math.random()-0.5)*0.4;
+    this.vy=-Math.random()*0.6-0.2;
+    this.life=1;this.decay=Math.random()*0.004+0.001;
+    this.gold=Math.random()<0.4;
+  }
+  update(){this.x+=this.vx;this.y+=this.vy;this.life-=this.decay;if(this.life<=0)this.reset()}
+  draw(){
+    ctx.save();
+    ctx.globalAlpha=this.life*0.7;
+    ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    ctx.fillStyle=this.gold?'#C8953A':'#fff';
+    ctx.fill();ctx.restore();
+  }
+}
+for(let i=0;i<120;i++)particles.push(new Particle());
+function animParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{p.update();p.draw()});
+  requestAnimationFrame(animParticles);
+}animParticles();
+
+// ── VIDEO FALLBACK ──
+const vid=document.getElementById('heroVid');
+vid.addEventListener('error',()=>{
+  vid.style.display='none';
+  document.getElementById('heroBg').style.background='linear-gradient(135deg,#0D0D1A 0%,#1A1A2E 50%,#0A1628 100%)';
+});
+setTimeout(()=>{if(vid.readyState===0){vid.style.display='none';}},5000);
+
+// ── SCROLL REVEAL ──
+const revObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('up');
+      e.target.querySelectorAll('.prog-fill').forEach(f=>{f.style.width=f.dataset.w+'%'});
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>revObs.observe(el));
+
+// ── COUNTER ANIMATION ──
+let counted=false;
+const cObs=new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting&&!counted){
+    counted=true;
+    document.querySelectorAll('.stat-num').forEach(el=>{
+      const target=+el.dataset.target;
+      const dur=1800;let start=null;
+      const step=ts=>{
+        if(!start)start=ts;
+        const p=Math.min((ts-start)/dur,1);
+        const ease=1-Math.pow(1-p,4);
+        el.textContent=Math.floor(ease*target).toLocaleString('en-IN')+(target>=500?'+':'');
+        if(p<1)requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  }
+},{threshold:0.4});
+cObs.observe(document.getElementById('statsSection'));
+
+// ── PARALLAX HERO ──
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY;
+  const v=document.querySelector('.hero-video');
+  if(v)v.style.transform=`translateY(${y*0.3}px)`;
+});
+
+// ── DONATE AMOUNTS ──
+function setAmt(val,el){
+  document.getElementById('dAmt').value=val;
+  document.querySelectorAll('.amt-chip').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function handleDonate(){
+  const v=document.getElementById('dAmt').value;
+  if(!v||v<1){alert('Please enter a valid amount.');return;}
+  alert('Thank you! ❤️\n\nYou\'re about to donate ₹'+parseInt(v).toLocaleString('en-IN')+' to Caring Hands.\n\nThis would redirect to our secure payment gateway.');
+}
+function handleForm(){
+  alert('Thank you for reaching out! 🙏\nOur team will get back to you within 24 hours.');
+}
+
+// ── STAGGERED GALLERY REVEAL ──
+document.querySelectorAll('.gm').forEach((g,i)=>{
+  g.style.transitionDelay=(i*0.06)+'s';
+});
+</script>
+</body>
+</html>

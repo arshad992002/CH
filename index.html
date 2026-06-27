@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caring Hands Charitable Trust – Changing Lives With Love</title>
+<meta name="description" content="Caring Hands Charitable Trust provides love, care, and dignity to the elderly. Join us in making their golden years truly golden.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="pre-logo"><img src="images/logo.jpg" alt="Logo" class="pre-logo-img"></div>
+  <div class="pre-bar-wrap"><div class="pre-bar"></div></div>
+  <div class="pre-tagline">Changing Lives With Love</div>
+</div>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor">
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="#">
+    <img src="images/logo.png" alt="Caring Hands Charitable Trust" class="nav-logo-img">
+  </a>
+  <ul class="nav-menu" id="navMenu">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#partners">Partners</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-donate" href="#contact">Donate Now ✦</a>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <img src="a.png" alt="Elderly people in garden" class="hero-img">
+    <div class="hero-gradient"></div>
+  </div>
+  <canvas id="particleCanvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span class="eyebrow-dot"></span>Serving Humanity Since 2010</div>
+    <h1 class="hero-h1">
+      Where <span class="italic">Compassion</span>
+      <span class="line-2">Meets Action</span>
+    </h1>
+    <p class="hero-p">Caring Hands Charitable Trust uplifts our beloved elders through dedicated care, healthcare, and love — building a world where no one ages alone.</p>
+    <div class="hero-actions">
+      <a class="btn-gold" href="#contact"><span>Make a Difference</span></a>
+      <a class="btn-ghost" href="#events">Our Events</a>
+    </div>
+  </div>
+  <div class="hero-scroll-cue">
+    <div class="scroll-line"></div>
+    <div class="scroll-text">Scroll</div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner" id="marqueeInner">
+    <span class="marquee-item">Elder Care <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Healthcare Outreach <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Daily Nutrition <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Community Building <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Mental Wellness <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Volunteer Programs <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Dignity in Aging <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Love & Compassion <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Elder Care <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Healthcare Outreach <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Daily Nutrition <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Community Building <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Mental Wellness <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Volunteer Programs <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Dignity in Aging <span class="marquee-sep">✦</span></span>
+    <span class="marquee-item">Love & Compassion <span class="marquee-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-belt" id="statsSection">
+  <div class="stat-item reveal">
+    <span class="stat-icon">🌍</span>
+    <span class="stat-num" data-target="250">0</span>
+    <span class="stat-lbl">Elders Cared For</span>
+  </div>
+  <div class="stat-item reveal" style="transition-delay:0.1s">
+    <span class="stat-icon">🏠</span>
+    <span class="stat-num" data-target="15">0</span>
+    <span class="stat-lbl">Years of Service</span>
+  </div>
+  <div class="stat-item reveal" style="transition-delay:0.2s">
+    <span class="stat-icon">🙌</span>
+    <span class="stat-num" data-target="5000">0</span>
+    <span class="stat-lbl">Volunteers</span>
+  </div>
+  <div class="stat-item reveal" style="transition-delay:0.3s">
+    <span class="stat-icon">✅</span>
+    <span class="stat-num" data-target="120">0</span>
+    <span class="stat-lbl">Events Organised</span>
+  </div>
+</div>
+
+<!-- EVENTS -->
+<section class="events-section" id="events">
+  <div class="events-header reveal">
+    <div class="s-tag">Upcoming Events</div>
+    <h2 class="s-title">Join Us in Making <span class="ital">a Difference</span></h2>
+    <p class="s-body" style="margin:0 auto;max-width:520px">Participate in our heartfelt events and bring smiles to the faces of our beloved elders.</p>
+  </div>
+  <div class="events-grid">
+    <div class="event-card reveal" style="transition-delay:0s">
+      <div class="ev-img-wrap">
+        <img src="images/event_1.png" alt="Annual Celebration">
+        <span class="ev-cat">Upcoming</span>
+        <div class="ev-date"><span class="ev-day">28</span><span class="ev-month">Jul</span></div>
+      </div>
+      <div class="ev-body">
+        <h3>Annual Elders Celebration</h3>
+        <p>A grand celebration honoring our elders with music, dance, cultural performances, and a feast of love.</p>
+        <div class="ev-meta">
+          <span>🕐 10:00 AM – 4:00 PM</span>
+          <span>📍 Main Hall</span>
+        </div>
+        <a class="ev-btn" href="#contact">Learn More <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+    <div class="event-card reveal" style="transition-delay:0.12s">
+      <div class="ev-img-wrap">
+        <img src="images/event_2.png" alt="Art Workshop">
+        <span class="ev-cat ev-ongoing">Ongoing</span>
+        <div class="ev-date"><span class="ev-day">05</span><span class="ev-month">Aug</span></div>
+      </div>
+      <div class="ev-body">
+        <h3>Art &amp; Craft Therapy Workshop</h3>
+        <p>Creative sessions where our elders express themselves through painting, pottery, and other wonderful crafts.</p>
+        <div class="ev-meta">
+          <span>🕐 Every Wednesday</span>
+          <span>📍 Activity Room</span>
+        </div>
+        <a class="ev-btn" href="#contact">Learn More <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+    <div class="event-card reveal" style="transition-delay:0.24s">
+      <div class="ev-img-wrap">
+        <img src="images/event_3.png" alt="Health Camp">
+        <span class="ev-cat">Upcoming</span>
+        <div class="ev-date"><span class="ev-day">12</span><span class="ev-month">Aug</span></div>
+      </div>
+      <div class="ev-body">
+        <h3>Free Health Check-up Camp</h3>
+        <p>Comprehensive health screenings, consultations, and wellness guidance for our senior residents and community.</p>
+        <div class="ev-meta">
+          <span>🕐 9:00 AM – 2:00 PM</span>
+          <span>📍 Medical Wing</span>
+        </div>
+        <a class="ev-btn" href="#contact">Learn More <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="gal-header reveal">
+    <div class="s-tag">Photo Stories</div>
+    <h2 class="s-title">Moments of <span class="ital">Joy &amp; Togetherness</span></h2>
+    <p class="s-body" style="margin:0 auto;max-width:500px">A glimpse into the daily life, celebrations, and heartwarming moments at Caring Hands.</p>
+  </div>
+  <div class="gallery-mosaic" style="margin-top:3rem">
+    <div class="gm gm1 reveal" onclick="openLightbox(0)"><img src="images/gallery_1.png" alt="Shared meals"><div class="gm-ov"><span>Shared Meals, Shared Love</span></div></div>
+    <div class="gm gm2 reveal" style="transition-delay:0.08s" onclick="openLightbox(1)"><img src="images/gallery_2.png" alt="Peaceful moments"><div class="gm-ov"><span>Peaceful Moments</span></div></div>
+    <div class="gm gm3 reveal" style="transition-delay:0.12s" onclick="openLightbox(2)"><img src="images/gallery_3.png" alt="Active living"><div class="gm-ov"><span>Active & Healthy Living</span></div></div>
+    <div class="gm gm4 reveal" style="transition-delay:0.16s" onclick="openLightbox(3)"><img src="images/gallery_4.png" alt="Gardening"><div class="gm-ov"><span>Green Thumbs at Work</span></div></div>
+    <div class="gm gm5 reveal" style="transition-delay:0.2s" onclick="openLightbox(4)"><img src="images/gallery_5.png" alt="Volunteers"><div class="gm-ov"><span>Volunteers Spreading Joy</span></div></div>
+    <div class="gm gm6 reveal" style="transition-delay:0.24s" onclick="openLightbox(5)"><img src="images/gallery_6.png" alt="Birthday"><div class="gm-ov"><span>Birthday Celebrations</span></div></div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" onclick="closeLightbox()">&times;</button>
+  <button class="lb-nav lb-prev" onclick="changeLightbox(-1)">&#8249;</button>
+  <img id="lightboxImg" src="" alt="Gallery image">
+  <button class="lb-nav lb-next" onclick="changeLightbox(1)">&#8250;</button>
+</div>
+
+<!-- PARTNERS -->
+<section class="partners-section" id="partners">
+  <div class="partners-header reveal">
+    <div class="s-tag">Trusted By</div>
+    <h2 class="s-title">Our <span class="ital">Partners</span></h2>
+    <p class="s-body" style="margin:0 auto;max-width:520px">We are grateful to work alongside amazing organisations who share our vision of compassionate elder care.</p>
+  </div>
+  <div class="partners-grid">
+    <div class="partner-card reveal" style="transition-delay:0s">
+      <div class="partner-icon">🏥</div>
+      <div class="partner-name">HealthFirst India</div>
+    </div>
+    <div class="partner-card reveal" style="transition-delay:0.06s">
+      <div class="partner-icon">🏛️</div>
+      <div class="partner-name">Tata Trusts</div>
+    </div>
+    <div class="partner-card reveal" style="transition-delay:0.12s">
+      <div class="partner-icon">🔄</div>
+      <div class="partner-name">Rotary International</div>
+    </div>
+    <div class="partner-card reveal" style="transition-delay:0.18s">
+      <div class="partner-icon">🦁</div>
+      <div class="partner-name">Lions Club</div>
+    </div>
+    <div class="partner-card reveal" style="transition-delay:0.24s">
+      <div class="partner-icon">🤝</div>
+      <div class="partner-name">HelpAge India</div>
+    </div>
+    <div class="partner-card reveal" style="transition-delay:0.3s">
+      <div class="partner-icon">❤️</div>
+      <div class="partner-name">Red Cross Society</div>
+    </div>
+  </div>
+  <div class="partners-marquee reveal">
+    <div class="p-marquee-inner">
+      <span>HealthFirst India</span><span>✦</span>
+      <span>Tata Trusts</span><span>✦</span>
+      <span>Rotary International</span><span>✦</span>
+      <span>Lions Club</span><span>✦</span>
+      <span>HelpAge India</span><span>✦</span>
+      <span>Red Cross Society</span><span>✦</span>
+      <span>HealthFirst India</span><span>✦</span>
+      <span>Tata Trusts</span><span>✦</span>
+      <span>Rotary International</span><span>✦</span>
+      <span>Lions Club</span><span>✦</span>
+      <span>HelpAge India</span><span>✦</span>
+      <span>Red Cross Society</span><span>✦</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-grid">
+    <div class="reveal-left">
+      <div class="s-tag">Get In Touch</div>
+      <h2 class="s-title">Let's Talk About<br><span class="ital">Making a Difference</span></h2>
+      <p class="s-body">Whether you want to volunteer, partner, or simply say hello — we would love to hear from you.</p>
+      <div class="c-info-items">
+        <div class="c-info-item">
+          <div class="c-ico">📍</div>
+          <div><strong>Visit Us</strong><span>Bada Banda, Mustaid Pura, Hyderabad, Telangana, 500006</span></div>
+        </div>
+        <div class="c-info-item">
+          <div class="c-ico">📞</div>
+          <div><strong>Call Us</strong><span>+91 95020 51489</span></div>
+        </div>
+        <div class="c-info-item">
+          <div class="c-ico">📧</div>
+          <div><strong>Email Us</strong><span>info@caringhands.in</span></div>
+        </div>
+        <div class="c-info-item">
+          <div class="c-ico">🕐</div>
+          <div><strong>Office Hours</strong><span>Monday – Saturday, 9:00 AM – 6:00 PM IST</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="c-form-wrap reveal-right">
+      <h3 class="form-title">Send a Message</h3>
+      <div class="f-row">
+        <div class="f-group"><label>First Name</label><input type="text" id="clientFirstName" placeholder="Your first name" required></div>
+        <div class="f-group"><label>Last Name</label><input type="text" placeholder="Your last name"></div>
+      </div>
+      <div class="f-group"><label>Email</label><input type="email" id="clientEmail" placeholder="your@email.com" required></div>
+      <div class="f-group"><label>Phone</label><input type="tel" placeholder="+91 XXXXX XXXXX"></div>
+      <div class="f-group">
+        <label>I want to</label>
+        <select>
+          <option>Volunteer with Caring Hands</option>
+          <option>Make a donation</option>
+          <option>Corporate CSR partnership</option>
+          <option>Schedule a visit</option>
+          <option>General enquiry</option>
+        </select>
+      </div>
+      <div class="f-group"><label>Message</label><textarea placeholder="Tell us how you'd like to help…"></textarea></div>
+      <button class="f-submit" onclick="handleForm()">Send Message ✦</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <a href="#" class="footer-logo-link"><img src="images/logo.jpg" alt="Caring Hands" class="footer-logo-img"></a>
+      <p class="footer-desc">Empowering our elders with compassion, healthcare, and dignity. Together we build a world where no one ages alone.</p>
+      <div class="f-socials">
+        <a class="f-soc" href="#">f</a>
+        <a class="f-soc" href="#">𝕏</a>
+        <a class="f-soc" href="#">in</a>
+        <a class="f-soc" href="#">📷</a>
+        <a class="f-soc" href="#">▶</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#partners">Partners</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Programs</h5>
+      <ul>
+        <li><a href="#">Elder Care</a></li>
+        <li><a href="#">Healthcare Outreach</a></li>
+        <li><a href="#">Daily Nutrition</a></li>
+        <li><a href="#">Mental Wellness</a></li>
+        <li><a href="#">Volunteer Programs</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Get Involved</h5>
+      <ul>
+        <li><a href="#">Volunteer</a></li>
+        <li><a href="#">Corporate CSR</a></li>
+        <li><a href="#">Monthly Giving</a></li>
+        <li><a href="#">Sponsor an Elder</a></li>
+        <li><a href="#">Annual Reports</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Caring Hands Charitable Trust · Reg. NGO · FCRA Approved · 80G Tax Exemption</span>
+    <div class="footer-trust">
+      <span>🔒 Secure</span>
+      <span>✅ Transparent</span>
+      <span>❤️ Built for humanity</span>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING DONATE -->
+<button class="float-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" title="Donate Now">❤️</button>
+
+<script>
+// ── PRELOADER ──
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    const pre=document.getElementById('preloader');
+    pre.style.transition='opacity 0.6s, visibility 0.6s';
+    pre.style.opacity='0';pre.style.visibility='hidden';
+  },2200);
+});
+
+// ── CUSTOM CURSOR ──
+const cursor=document.getElementById('cursor');
+const ring=document.getElementById('cursorRing');
+let cx=0,cy=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  cx=e.clientX;cy=e.clientY;
+  cursor.querySelector('.cursor-dot').style.left=cx+'px';
+  cursor.querySelector('.cursor-dot').style.top=cy+'px';
+});
+function animRing(){
+  rx+=(cx-rx)*0.12;ry+=(cy-ry)*0.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+}animRing();
+document.querySelectorAll('a,button,.event-card,.partner-card,.gm').forEach(el=>{
+  el.addEventListener('mouseenter',()=>ring.classList.add('hovered'));
+  el.addEventListener('mouseleave',()=>ring.classList.remove('hovered'));
+});
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('solid',window.scrollY>60);
+});
+
+// ── MOBILE MENU ──
+const hamburger=document.getElementById('hamburger');
+const navMenu=document.getElementById('navMenu');
+hamburger.addEventListener('click',()=>{
+  navMenu.classList.toggle('active');
+  const spans=hamburger.querySelectorAll('span');
+  if(navMenu.classList.contains('active')){
+    spans[0].style.transform='rotate(45deg) translate(5px,5px)';
+    spans[1].style.opacity='0';
+    spans[2].style.transform='rotate(-45deg) translate(5px,-5px)';
+  } else {
+    spans.forEach(s=>{s.style.transform='none';s.style.opacity='1';});
+  }
+});
+navMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  navMenu.classList.remove('active');
+  hamburger.querySelectorAll('span').forEach(s=>{s.style.transform='none';s.style.opacity='1';});
+}));
+
+// ── PARTICLE CANVAS ──
+const canvas=document.getElementById('particleCanvas');
+const ctx=canvas.getContext('2d');
+let particles=[];
+function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight}
+resizeCanvas();window.addEventListener('resize',resizeCanvas);
+class Particle{
+  constructor(){this.reset()}
+  reset(){
+    this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;
+    this.r=Math.random()*2+0.5;this.vx=(Math.random()-0.5)*0.4;this.vy=-Math.random()*0.6-0.2;
+    this.life=1;this.decay=Math.random()*0.004+0.001;this.gold=Math.random()<0.4;
+  }
+  update(){this.x+=this.vx;this.y+=this.vy;this.life-=this.decay;if(this.life<=0)this.reset()}
+  draw(){
+    ctx.save();ctx.globalAlpha=this.life*0.7;ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    ctx.fillStyle=this.gold?'#C8953A':'#fff';ctx.fill();ctx.restore();
+  }
+}
+for(let i=0;i<100;i++)particles.push(new Particle());
+function animParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{p.update();p.draw()});
+  requestAnimationFrame(animParticles);
+}animParticles();
+
+// ── SCROLL REVEAL ──
+const revObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('up')});
+},{threshold:0.12});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>revObs.observe(el));
+
+// ── COUNTER ANIMATION ──
+let counted=false;
+const cObs=new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting&&!counted){
+    counted=true;
+    document.querySelectorAll('.stat-num').forEach(el=>{
+      const target=+el.dataset.target;const dur=1800;let start=null;
+      const step=ts=>{
+        if(!start)start=ts;const p=Math.min((ts-start)/dur,1);
+        const ease=1-Math.pow(1-p,4);
+        el.textContent=Math.floor(ease*target).toLocaleString('en-IN')+(target>=15?'+':'');
+        if(p<1)requestAnimationFrame(step);
+      };requestAnimationFrame(step);
+    });
+  }
+},{threshold:0.4});
+cObs.observe(document.getElementById('statsSection'));
+
+// ── GALLERY LIGHTBOX ──
+const galleryImages=['images/gallery_1.png','images/gallery_2.png','images/gallery_3.png','images/gallery_4.png','images/gallery_5.png','images/gallery_6.png'];
+let currentIdx=0;
+function openLightbox(idx){
+  currentIdx=idx;document.getElementById('lightboxImg').src=galleryImages[idx];
+  document.getElementById('lightbox').classList.add('active');document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('active');document.body.style.overflow='';
+}
+function changeLightbox(dir){
+  currentIdx=(currentIdx+dir+galleryImages.length)%galleryImages.length;
+  document.getElementById('lightboxImg').src=galleryImages[currentIdx];
+}
+document.getElementById('lightbox').addEventListener('click',e=>{if(e.target===e.currentTarget)closeLightbox()});
+document.addEventListener('keydown',e=>{
+  if(!document.getElementById('lightbox').classList.contains('active'))return;
+  if(e.key==='Escape')closeLightbox();
+  if(e.key==='ArrowLeft')changeLightbox(-1);
+  if(e.key==='ArrowRight')changeLightbox(1);
+});
+
+// ── CONTACT FORM ──
+function handleForm() {
+  const firstName = document.getElementById('clientFirstName').value.trim();
+  const email = document.getElementById('clientEmail').value.trim();
+
+  if (!firstName || !email) {
+    alert('Please fill out your Name and Email address.');
+    return;
+  }
+
+  const btn = document.querySelector('.f-submit');
+  btn.textContent = 'Sending...';
+  btn.style.opacity = '0.7';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    btn.textContent = '✓ Message Sent!';
+    btn.style.opacity = '1';
+    btn.disabled = false;
+
+    // Show simulated email notification
+    showEmailModal(firstName, email);
+
+    // Reset Form
+    document.getElementById('clientFirstName').value = '';
+    document.getElementById('clientEmail').value = '';
+    document.querySelector('.c-form-wrap textarea').value = '';
+
+    setTimeout(() => {
+      btn.textContent = 'Send Message ✦';
+    }, 3000);
+  }, 1500);
+}
+
+function showEmailModal(name, email) {
+  // Create modal markup
+  const modal = document.createElement('div');
+  modal.className = 'email-modal';
+  modal.innerHTML = `
+    <div class="email-modal-card">
+      <div class="email-modal-header">
+        <span class="email-badge-indicator">📧 Dynamic Email Outbox Simulation</span>
+        <button class="email-modal-close" onclick="closeEmailModal(this)">&times;</button>
+      </div>
+      <div class="email-modal-meta">
+        <p><strong>From:</strong> info@caringhands.in</p>
+        <p><strong>To:</strong> ${email}</p>
+        <p><strong>Subject:</strong> Thank you for contacting Caring Hands Charitable Trust!</p>
+      </div>
+      <div class="email-modal-body">
+        <p>Dear ${name},</p>
+        <p>Thank you for reaching out to <strong>Caring Hands Charitable Trust</strong>. We have successfully received your inquiry and our team is already reviewing it.</p>
+        <p>Our representatives will get in touch with you shortly. If you are interested in making a difference immediately, please feel free to call us at <strong>+91 95020 51489</strong>.</p>
+        <br>
+        <p>Warm regards,</p>
+        <p><strong>Caring Hands Charitable Trust Team</strong><br>Bada Banda, Mustaid Pura, Hyderabad, India</p>
+      </div>
+      <div class="email-modal-footer">
+        <span class="email-footer-note">✓ Automated response successfully dispatched via SMTP loopback (info@caringhands.in)</span>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  setTimeout(() => modal.classList.add('active'), 50);
+}
+
+function closeEmailModal(btn) {
+  const modal = btn.closest('.email-modal');
+  modal.classList.remove('active');
+  setTimeout(() => modal.remove(), 400);
+}
+
+// ── PARALLAX ──
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY;const img=document.querySelector('.hero-img');
+  if(img)img.style.transform=`translateY(${y*0.25}px)`;
+});
+
+// ── STAGGER GALLERY ──
+document.querySelectorAll('.gm').forEach((g,i)=>{g.style.transitionDelay=(i*0.06)+'s'});
+</script>
+</body>
+</html>

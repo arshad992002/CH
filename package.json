@@ -1,0 +1,13 @@
+{
+  "name": "caring-hands-root",
+  "version": "1.0.0",
+  "description": "Root workspace configuration for Caring Hands Trust",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "install-backend": "npm --prefix backend install",
+    "install-frontend": "npm --prefix frontend install",
+    "build-frontend": "npm --prefix frontend run build",
+    "postinstall": "npm run install-backend && npm run install-frontend && npm run build-frontend"
+  }
+}

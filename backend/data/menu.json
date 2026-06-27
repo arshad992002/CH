@@ -1,0 +1,65 @@
+[
+  {
+    "id": "menu_1",
+    "category": "Daily Meals",
+    "title": "Nourishing Breakfast",
+    "description": "Hot ragi malt, milk, oatmeal, and fresh organic fruits to kickstart the day with good nutrition.",
+    "time": "8:00 AM – 9:00 AM"
+  },
+  {
+    "id": "menu_2",
+    "category": "Daily Meals",
+    "title": "Healthy Balanced Lunch",
+    "description": "Full Indian thali with wheat rotis, dal, mixed vegetable subzi, steamed rice, and fresh curd.",
+    "time": "12:30 PM – 2:00 PM"
+  },
+  {
+    "id": "menu_3",
+    "category": "Daily Meals",
+    "title": "Evening Tea & Snacks",
+    "description": "Warm herbal tea served with digestive biscuits, roasted pulses, or light puffed rice.",
+    "time": "4:30 PM – 5:15 PM"
+  },
+  {
+    "id": "menu_4",
+    "category": "Medical Care",
+    "title": "Daily Vitals Screening",
+    "description": "Monitoring blood pressure, blood glucose levels, temperature, and oxygen saturation by nursing staff.",
+    "time": "Daily (Morning)"
+  },
+  {
+    "id": "menu_5",
+    "category": "Medical Care",
+    "title": "Physiotherapy & Mobility",
+    "description": "Guided sessions with physiotherapists to perform gentle stretching, joint mobility, and walking support.",
+    "time": "Mon, Wed, Fri"
+  },
+  {
+    "id": "menu_6",
+    "category": "Medical Care",
+    "title": "Doctor Consultations",
+    "description": "Visits by senior geriatric physicians for comprehensive health checkups, medicine review, and care adjustment.",
+    "time": "Every Thursday"
+  },
+  {
+    "id": "menu_7",
+    "category": "Recreation",
+    "title": "Yoga & Meditation",
+    "description": "Light breathing exercises (pranayama), chair yoga, and guided mindfulness sessions for mental peace.",
+    "time": "7:00 AM – 7:45 AM"
+  },
+  {
+    "id": "menu_8",
+    "category": "Recreation",
+    "title": "Interactive Board Games",
+    "description": "Playing chess, carrom, and memory puzzle games to stimulate cognitive health and enjoy social company.",
+    "time": "3:00 PM – 4:30 PM"
+  },
+  {
+    "id": "menu_9",
+    "category": "Recreation",
+    "title": "Gardening & Storytelling",
+    "description": "Tending to the herb garden, sharing life stories, reciting poetry, and playing classic group music.",
+    "time": "5:30 PM – 6:30 PM"
+  }
+]
