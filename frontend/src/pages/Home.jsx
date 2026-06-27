@@ -373,7 +373,7 @@ const Home = ({ onNavigateToAdmin }) => {
           <li><a href="#menu-page" onClick={() => setMobileMenuOpen(false)}>Daily Care</a></li>
           <li><a href="#events-page" onClick={() => setMobileMenuOpen(false)}>Events</a></li>
           <li><a href="#gallery-page" onClick={() => setMobileMenuOpen(false)}>Gallery</a></li>
-          <li><a href="#partners" onClick={() => setMobileMenuOpen(false)}>Sponsors</a></li>
+          <li><a href="#partners" onClick={() => setMobileMenuOpen(false)}>Partners</a></li>
           <li><a href="#contact" onClick={() => setMobileMenuOpen(false)}>Contact</a></li>
         </ul>
         <div className="nav-actions">
@@ -750,7 +750,7 @@ const Home = ({ onNavigateToAdmin }) => {
       <section className="partners-section" id="partners">
         <div className="partners-header reveal">
           <div className="s-tag">Trusted & Supported By</div>
-          <h2 className="s-title">Our <span class="ital">Sponsors</span></h2>
+          <h2 className="s-title">Our <span class="ital">Partners</span></h2>
           <p className="s-body" style={{ margin: '0 auto', maxWidth: '520px' }}>
             We are grateful to work alongside amazing organisations who share our vision of compassionate elder care.
           </p>
@@ -889,7 +889,7 @@ const Home = ({ onNavigateToAdmin }) => {
               <li><a href="#menu">Daily Care</a></li>
               <li><a href="#events">Events</a></li>
               <li><a href="#gallery">Gallery</a></li>
-              <li><a href="#partners">Sponsors</a></li>
+              <li><a href="#partners">Partners</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>
           </div>
